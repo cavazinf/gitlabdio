@@ -1,0 +1,12 @@
+# Especifica a imagem base do Gitlab Runner para o pipeline
+image: docker:latest
+
+# Define as etapas do pipeline
+stages:
+  - build
+
+# Definição da etapa "build"
+build:
+  stage: build
+  script:
+    - docker build -t meu-app-docker .
