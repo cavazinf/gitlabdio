@@ -1,0 +1,46 @@
+
+Criando um Pipeline de Deploy de uma Aplicação Utilizando Gitlab, Docker e Kubernetes
+
+
+# Especifica a imagem base do GitLab Runner para o pipeline
+image: docker:latest
+
+# Define as etapas do pipeline
+stages:
+  - build
+  - deploy
+
+# Definição da etapa "build"
+build:
+  stage: build
+  script:
+    - docker build -t meu-app-docker .
+
+# Definição da etapa "deploy"
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f path/to/kubernetes/deployment.yaml
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meu-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: meu-app
+  template:
+    metadata:
+      labels:
+        app: meu-app
+    spec:
+      containers:
+        - name: meu-app-container
+          image: meu-app-docker:latest
+          ports:
+            - containerPort: 80
+
