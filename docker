@@ -1,0 +1,17 @@
+# Use a imagem base do Node.js
+FROM node:14
+
+# Diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copie todos os arquivos do diretório local para o diretório de trabalho do contêiner
+COPY . .
+
+# Instale as dependências do projeto
+RUN npm install
+
+# Expõe a porta 3000 para acessar o aplicativo
+EXPOSE 3000
+
+# Comando para iniciar o aplicativo
+CMD ["npm", "start"]
